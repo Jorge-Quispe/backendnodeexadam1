@@ -13,8 +13,8 @@ import { pool } from "../database"
 
   
 export const agregarLibro = async (req,res)=>{
-    const {titulo,autor,paginas,edicion, ideditorial} = req.body;
-    pool.query('insert into libro(titulo, autor, paginas, edicion, ideditorial) values (?,?,?,"aea",?)',[titulo,autor,paginas,edicion, ideditorial], function(err, result) {
+    const {titulo,autor,paginas, ideditorial} = req.body;
+    pool.query('insert into libro(titulo, autor, paginas, edicion, ideditorial) values (?,?,?,"aea",?)',[titulo,autor,paginas, ideditorial], function(err, result) {
     try {
       return res.status(200).json(
         `El producto ${ titulo } se ha agregado correctamente...!` //alt 96
@@ -51,9 +51,9 @@ export const deleteLibro = async (req,res)=>{
 
   export const editarLibro = async (req,res)=>{
     const id = parseInt(req.params.id);
-    const {titulo,autor,paginas,edicion,ideeditorial} = req.body;
+    const {titulo,autor,paginas,ideditorial} = req.body;
   
-    pool.query('update libro set titulo = (?), autor = (?), paginas = (?)  where idlibro = (?)',[titulo,autor,paginas,id], function(err, result) {
+    pool.query('update libro set titulo = ?, autor = ?, paginas = ? , ideditorial = ?  where idlibro =?',[titulo,autor,paginas,ideditorial,id], function(err, result) {
     try {
       return res.status(200).json(
         `El producto con id  ${ id } se ha editado correctamente...!` //alt 96
